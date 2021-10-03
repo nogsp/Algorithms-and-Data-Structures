@@ -13,7 +13,6 @@ class LinkedList {
             this->next = nextval;
         }
         Link(Link *nextval) {
-            this->element = 0;
             this->next = nextval;
         }
     };
@@ -29,7 +28,7 @@ class LinkedList {
     long long size() {
         return cnt;
     }
-    void clear() {
+    void safeClear() {
         curr = head;
         Link *temp;
         while(curr != tail) {
@@ -38,7 +37,9 @@ class LinkedList {
             delete(temp);
         }
         delete(curr);
-        curr = tail = head;
+    }
+    void clear() {
+        curr = tail = head = new Link(nullptr);
         cnt = 0;
     }
     void appendBack(E it) {
@@ -46,9 +47,27 @@ class LinkedList {
         tail = tail->next;
         cnt++;
     }
+    void removeBack() {
+        if(cnt == 0) return;
+        Link *temp = head;
+        while(temp->next != tail) {
+            temp = temp->next;
+        }
+        temp->next = nullptr;
+        tail = temp;
+        cnt--;
+    }
     void appendFront(E it) {
         head->next = new Link(it, head->next);
+        while(tail->next != nullptr) tail = tail->next;
         cnt++;
+    }
+    void removeFront() {
+        if(cnt == 0) return;
+        if(curr == head->next) curr = head;
+        if(tail == head->next) tail = head;
+        head->next = head->next->next;
+        cnt--;
     }
     void moveToStart() {
         curr = head;
@@ -56,13 +75,15 @@ class LinkedList {
     void moveToEnd() {
         curr = tail;
     }
-    bool moveToPos(long long pos) {
-        if(pos < 0 || pos >= cnt) return false;
+    void moveToPos(long long pos) {
+        if(pos >= cnt) {
+            moveToEnd();
+            return;
+        }
         curr = head;
         for(long long i = 0; i < pos; i++) {
             curr = curr->next;
         }
-        return true;
     }
     void prev() {
         if(curr == head) return;
@@ -89,46 +110,74 @@ class LinkedList {
         if(tail == curr) tail = curr->next;
         cnt++;
     }
-    E remove() {
+    bool remove() {
         if(curr->next == nullptr) {
-            printf("LinkedList is already empty\n");
-            return -1;
+            return false;
         }
-        E it = curr->next->element;
         curr->next = curr->next->next;
-        return it;
+        return true;
     }
-    
-    
-    
-    
-    
     E getValue() {
-        if(curr->next != nullptr) {
-            return curr->next->element;
+        if(cnt == 0) {
+            printf("LinkedListk is empty");
+            exit(-1);
         }
-        printf("invalid curr pointer\n");
-        return -1;
-
+        if(curr->next == nullptr) {
+            return curr->element;
+        }    
+        return curr->next->element;
     }
-    E at(E it) {
+    E at(long long it) {
         Link *temp = curr;
-        if(moveToPos(it)) {
-            E val = getValue();
-            curr = temp;
-            return val;
-        } else {
-            printf("position out of bound\n");
-            return -1;
-        }
+        moveToPos(it);
+        E val = getValue();
+        curr = temp;
+        return val;
+        
     }
-    E operator[]() {
+    E operator[](long long it) {
+        return at(it);
+    }
+    void insertAt(long long pos, E it) {
+        Link *temp = curr;
+        moveToPos(pos);
+        insert(it);
+        curr = temp;
+        cnt++;
+    }
 
+    void removeAt(long long pos) {
+        Link *temp = curr;
+        moveToPos(pos);
+        remove();
+        curr = temp;
+        cnt--;
     }
+
+    int empty() {
+        if(cnt > 0) return 1;
+        return 0;
+    }
+    void print() {
+        Link *temp = head;
+        while(temp->next != nullptr) {
+           cout << temp->next->element << " ";
+           temp = temp->next;
+        }
+        cout << endl;
+   }
 };
 
 int main() {
     LinkedList lista;
-
-    //a = "dale";
+    lista.appendFront(1);
+    lista.print();
+    lista.appendBack(2);
+    lista.print();
+    lista.appendFront(1);
+    lista.print();
+    lista.removeFront();
+    lista.print();
+    lista.removeBack();
+    lista.print();
 }
