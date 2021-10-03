@@ -5,6 +5,9 @@ using namespace std;
 
 template<class E>
 class LinkedList {
+    long long max(long long a, long long b) {
+        return (a >= b) ? a : b;
+    }
     class Link {
         public:
         E element;
@@ -56,7 +59,7 @@ class LinkedList {
         }
         temp->next = nullptr;
         tail = temp;
-        cnt--;
+        cnt = max(0, cnt-1);
     }
     void appendFront(E it) {
         head->next = new Link(it, head->next);
@@ -68,7 +71,7 @@ class LinkedList {
         if(curr == head->next) curr = head;
         if(tail == head->next) tail = head;
         head->next = head->next->next;
-        cnt--;
+        cnt = max(0, cnt-1);
     }
     void moveToStart() {
         curr = head;
@@ -115,7 +118,11 @@ class LinkedList {
         if(curr->next == nullptr) {
             return false;
         }
+        if(curr->next == tail) {
+            tail = curr;
+        }
         curr->next = curr->next->next;
+        cnt = max(0, cnt-1);
         return true;
     }
     E getValue() {
@@ -152,7 +159,7 @@ class LinkedList {
         moveToPos(pos);
         remove();
         curr = temp;
-        cnt--;
+        cnt = max(0, cnt-1);
     }
 
     int empty() {
