@@ -1,8 +1,9 @@
 #include <iostream>
 
 using namespace std;
-typedef int E;
 
+
+template<class E>
 class LinkedList {
     class Link {
         public:
@@ -169,12 +170,12 @@ class LinkedList {
 };
 
 int main() {
-    LinkedList lista;
-    lista.appendFront(1);
+    LinkedList<char> lista;
+    lista.appendFront('a');
     lista.print();
-    lista.appendBack(2);
+    lista.appendBack('b');
     lista.print();
-    lista.appendFront(1);
+    lista.appendFront('c');
     lista.print();
     lista.removeFront();
     lista.print();
