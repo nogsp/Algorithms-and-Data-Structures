@@ -80,7 +80,7 @@ void insert(List* l, E it) {
 }
 
 void append(List *l, E it) {
-    l->tail->next =createLink(it, NULL);
+    l->tail->next = createLink(it, NULL);
     l->tail = l->tail->next;
     l->cnt++;
 }

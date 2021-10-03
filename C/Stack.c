@@ -15,8 +15,8 @@ struct Stack {
 
 /*** FUNCITONS PROTOTYPES ***/
 Link* createLink(E it, Link *nextval);
-Stack* createStack();
 /*functions prototypes user frinedly*/
+Stack* createStack();
 void clear();
 void push(Stack *s, E item);
 int pop(Stack *s);

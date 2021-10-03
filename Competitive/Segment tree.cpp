@@ -1,6 +1,4 @@
-#include <iostream>
-#include <cstdio>
-#include <vector>
+#include <bits/stdc++.h>
 #define pb push_back
 #define ll long long
 #define inf 1000001 //DEPENDS ON THE PROBLEM

@@ -1,11 +1,11 @@
-public class List <E> {
+public class LinkedList <E> {
 	
 	Link head;
 	Link tail;
 	Link curr;
 	int cnt;
 	
-	public List() {
+	public LinkedList() {
 		head = tail = curr = create_link(null);
 		cnt = 0;
 	}
@@ -145,7 +145,7 @@ public class List <E> {
 	}
 	
 	public static void main(String[] args) {
-		List<Integer> lista = new List<Integer>();
+		LinkedList<Integer> lista = new LinkedList<Integer>();
 		lista.append(1);
 		lista.append(2);
 		lista.append(3);
