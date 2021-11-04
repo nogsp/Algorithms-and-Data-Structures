@@ -110,21 +110,18 @@ int main(){
 		scanf("%lld",&vet[i]);
 	}
 	segTreeSum *segtS = new segTreeSum(n, vet);
-	segTreeMin *segtM = new segTreeMin(n, vet);
 	ll q;
 	scanf("%lld", &q);
 	while(q--){
-		char op;
+		int op;
 		int a, b;
-		scanf(" %c %d %d", &op, &a, &b);
-		if(op=='Q' || op=='q'){
+		scanf(" %d %d %d", &op, &a, &b);
+		if(op == 0){
 			ll v1 = segtS->query(1,0,n-1,a,b);
-			ll v2 = segtM->query(1,0,n-1,a,b);
-			printf("%lld %lld\n",v1, v2);
+			printf("%lld\n",v1);
 		}
 		else{
 			segtS->update(1,0,n-1, a, b);
-			segtM->update(1,0,n-1, a, b);
 		}
 	}
 }
