@@ -8,7 +8,6 @@ using namespace std;
 int is_prime[20000000];
 vector<int> primes;
 void sieve(int n) {
-    primes.clear();
     memset(is_prime, 1, sizeof(is_prime));
     
     for(int p = 3; p * p <= n; p += 2) {
@@ -18,7 +17,10 @@ void sieve(int n) {
             }
         }
     }
-    for(int i = 2; i <= n; i++) if(is_prime[i]) primes.push_back(i);
+    primes.assign(1, 2);
+    for(int i = 3; i <= n; i+=2) 
+        if(is_prime[i])
+            primes.push_back(i);
 }
 
 int main() {
